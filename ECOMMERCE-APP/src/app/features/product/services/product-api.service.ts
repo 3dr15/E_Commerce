@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { AbstractControl, ValidationErrors } from '@angular/forms';
 import { ProductService } from '../../../api/services';
-import { Product } from 'src/app/api/models';
+import { Product, ProductIEnumerableInt32ValueTuple } from '../../../api/models';
 import { AddProduct } from '../../../api/models/add-product';
 import { UpdateProduct } from '../../../api/models/update-product';
 
@@ -33,7 +33,7 @@ export class ProductApiService {
 
   }
 
-  getProductList(pagination: IPaginationParam): Observable<Array<Product>> {
+  getProductList(pagination: IPaginationParam = {pageNumber:1, pageSize:10 }): Observable<ProductIEnumerableInt32ValueTuple> {
     return this.productService.apiProductGet({
       pageSize: pagination.pageSize,
       pageNumber: pagination.pageNumber

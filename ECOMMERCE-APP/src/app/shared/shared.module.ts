@@ -15,7 +15,9 @@ import {ContextMenuModule} from 'primeng/contextmenu';
 import {ButtonModule} from 'primeng/button';
 import {ToastModule} from 'primeng/toast';
 import {InputTextModule} from 'primeng/inputtext';
+import {InputNumberModule} from 'primeng/inputnumber';
 import {ProgressBarModule} from 'primeng/progressbar';
+import {InputTextareaModule} from 'primeng/inputtextarea';
 
 
 
@@ -36,6 +38,8 @@ import {ProgressBarModule} from 'primeng/progressbar';
     ContextMenuModule,
     ButtonModule,
     InputTextModule,
+    InputNumberModule,
+    InputTextareaModule,
     ProgressBarModule,
     CalendarModule
   ],
@@ -51,6 +55,8 @@ import {ProgressBarModule} from 'primeng/progressbar';
     ContextMenuModule,
     ButtonModule,
     InputTextModule,
+    InputNumberModule,
+    InputTextareaModule,
     ProgressBarModule,
     CalendarModule
   ],

@@ -34,7 +34,7 @@ export class ProductAddEditComponent implements OnInit, OnDestroy {
     this.initializeFormGroup();
   }
 
-  getCategories() {
+  getCategories(): void {
     this.subscription.add(
       this.categoryApiService.getCategoriesList().subscribe({
         next: (responseData) => {
@@ -85,10 +85,10 @@ export class ProductAddEditComponent implements OnInit, OnDestroy {
   }
 
   quit(): void {
-    this.router.navigate(['add-product']);
+    this.router.navigate(['products']);
   }
     
-  private addProduct() {
+  private addProduct(): void {
     this.subscription.add(
       this.productApiService.addProduct(this.productFormGroup.value).subscribe({
         next: (responseData) => {
@@ -104,7 +104,7 @@ export class ProductAddEditComponent implements OnInit, OnDestroy {
     );
   }
 
-  private updateProduct() {
+  private updateProduct(): void {
     this.subscription.add(
       this.productApiService.updateProduct(this.productFormGroup.value).subscribe({
         next: (responseData) => {
@@ -119,19 +119,15 @@ export class ProductAddEditComponent implements OnInit, OnDestroy {
     );
   }
 
-  private initializeFormGroup() {
+  private initializeFormGroup(): void {
     this.productFormGroup = this.formBuilder.group({
       productId: [undefined],
       name: [undefined, [Validators.required, CustomValidator.isEmpty]],
       price: [undefined,  [Validators.required, CustomValidator.isEmpty]],
       description: [undefined, [Validators.required, Validators.maxLength(500), CustomValidator.isEmpty]],
       categoryId: [undefined, [Validators.required]],
-      expiryDate: [undefined]
+      expiryDate: [null]
     });
-
-    // {
-    //   expiryDate?: null | string; should not be less than todays date 
-    // }
 
     if(this.activeRoute.snapshot.params['id']) {
       this.getProduct(this.activeRoute.snapshot.params['id']);
@@ -141,8 +137,8 @@ export class ProductAddEditComponent implements OnInit, OnDestroy {
     }
   }
     
-  private fillProductFormGroup(responseData: Product) {
-    this.productFormGroup.setValue({
+  private fillProductFormGroup(responseData: Product): void {
+    this.productFormGroup.patchValue({
       productId: responseData.productId,
       name: responseData.name,
       price: responseData.price,
@@ -150,5 +146,8 @@ export class ProductAddEditComponent implements OnInit, OnDestroy {
       categoryId: responseData.categoryId,
       expiryDate: responseData.expiryDate ? new Date(responseData.expiryDate ?? '') : undefined
     });
+  }
+  addNewProduct(): void {
+    this.router.navigate(['add-product']);
   }
 }

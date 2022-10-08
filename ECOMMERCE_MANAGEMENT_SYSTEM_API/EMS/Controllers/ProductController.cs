@@ -31,9 +31,10 @@ namespace ECommerce.Controllers
 
         // GET: api/Product
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<HOST.Modals.Response.Product>>> GetProducts([FromQuery] int pageSize = 10, [FromQuery] int pageNumber = 1)
+        public async Task<ActionResult<(IEnumerable<HOST.Modals.Response.Product>, int)>> GetProducts([FromQuery] int pageSize = 10, [FromQuery] int pageNumber = 1)
         {
-            return Ok(_mapper.Map<List<HOST.Modals.Response.Product>>(await _productBusiness.GetProducts(pageSize, pageNumber)));
+            var (products, count) = await _productBusiness.GetProducts(pageSize, pageNumber);
+            return Ok((_mapper.Map<List<HOST.Modals.Response.Product>>(products), count));
         }
 
         // GET: api/Product/C945FFE8-A012-415B-B11E-3CDB9FFC8626

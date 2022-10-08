@@ -28,17 +28,18 @@
     <div class="row my-5">
         <div class="col-xl-12 col-md-12 col-sm-12">
             <div>
-                <label for="name">Description</label>
+                <label for="description">Description</label>
             </div>
             <div class="p-label">
-                <input id="name" 
-                    type="text" pInputText 
+                <textarea id="description"
+                    pInputTextarea 
                     formControlName="description" 
                     [ngClass]="{
                         'ng-invalid ng-dirty ng-touched': productFormGroup.get('description')?.invalid
                                                         && productFormGroup.get('description')?.touched
                     }"
-                > 
+                >
+                </textarea>
             </div>
             <div *ngIf="productFormGroup.get('description')?.invalid && productFormGroup.get('description')?.touched"
                 class="text-danger"
@@ -60,14 +61,23 @@
                 <label for="price">Price</label>
             </div>
             <div class="p-label">
-                <input id="price" 
-                    type="text" pInputText 
+                <p-inputNumber 
                     formControlName="price" 
+                    mode="currency" 
+                    inputId="price" 
+                    currency="INR" currencyDisplay="code" 
+                    locale="en-IN"
                     [ngClass]="{
                         'ng-invalid ng-dirty ng-touched': productFormGroup.get('price')?.invalid
                                                         && productFormGroup.get('price')?.touched
                     }"
-                > 
+                >
+                </p-inputNumber>
+                <!-- <input id="price" 
+                    type="text" pInputText 
+                    formControlName="price" 
+                    
+                >  -->
             </div>
             <div *ngIf="productFormGroup.get('price')?.invalid && productFormGroup.get('price')?.touched"
                 class="text-danger"
@@ -84,10 +94,11 @@
     <div class="row my-5">
         <div class="col-xl-12 col-md-12 col-sm-12">
             <div>
-                <label for="float-input-invalid">Category</label>
+                <label for="category">Category</label>
             </div>
             <div class="">
                 <p-dropdown 
+                    inputId="category"
                     formControlName="categoryId" 
                     optionLabel="name"
                     optionValue="categoryId"
@@ -113,10 +124,10 @@
                     </ng-template>
                 </p-dropdown>
             </div>
-            <div *ngIf="productFormGroup.get('category')?.invalid
-                        && productFormGroup.get('category')?.touched"
+            <div *ngIf="productFormGroup.get('categoryId')?.invalid
+                        && productFormGroup.get('categoryId')?.touched"
                         class="text-danger">
-                <div *ngIf="productFormGroup.get('category')?.hasError('required')
+                <div *ngIf="productFormGroup.get('categoryId')?.hasError('required')
                 ">
                     Please Select Category
                 </div>
@@ -127,16 +138,16 @@
     <div class="row my-5">
         <div class="col-xl-12 col-md-12 col-sm-12">
             <div>
-                <label for="float-input-invalid">Expiry Date</label>
+                <label for="expiryDate">Expiry Date</label>
             </div>
             <div>
                 <p-calendar 
-                    inputId="basic" 
+                    inputId="expiryDate" 
                     [minDate]="minDate" 
                     formControlName="expiryDate"
                     [ngClass]="{
-                        'ng-invalid ng-dirty ng-touched': productFormGroup.get('price')?.invalid
-                                                        && productFormGroup.get('price')?.touched
+                        'ng-invalid ng-dirty ng-touched': productFormGroup.get('expiryDate')?.invalid
+                                                        && productFormGroup.get('expiryDate')?.touched
                     }"
                 ></p-calendar>
             </div>
@@ -144,12 +155,18 @@
     </div>
     <div class="row my-5">
         <div class="col-xl-6">
-            <button class="btn btn-primary btn-block" (click)="save()">
+            <button class="btn btn-primary btn-block my-2 mx-2" (click)="save()">
                 Save
             </button>
-            <button class="btn btn-secondary btn-block" (click)="quit()">
+            <button class="btn btn-secondary btn-block my-2 mx-2" (click)="quit()">
                 Quit
             </button>
+        </div>
+        <div *ngIf="isEditForm">
+            <button class="btn btn-secondary btn-block my-2 mx-2" (click)="addNewProduct()">
+                Add New Product
+            </button>
+
         </div>
     </div>
 </div>

@@ -58,10 +58,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/Product"
-                  }
+                  "$ref": "#/components/schemas/ProductIEnumerableInt32ValueTuple"
                 }
               }
             }
@@ -269,6 +266,23 @@
             "type": "string",
             "format": "date-time",
             "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "ProductIEnumerableInt32ValueTuple": {
+        "type": "object",
+        "properties": {
+          "item1": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Product"
+            },
+            "nullable": true
+          },
+          "item2": {
+            "type": "integer",
+            "format": "int32"
           }
         },
         "additionalProperties": false

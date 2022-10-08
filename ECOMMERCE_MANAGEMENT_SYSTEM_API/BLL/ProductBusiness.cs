@@ -14,7 +14,7 @@ namespace BLL
             _context = context;
         }
 
-        public async Task<IEnumerable<Product>> GetProducts(int pageSize, int pageNumber)
+        public async Task<(IEnumerable<Product>, int)> GetProducts(int pageSize, int pageNumber)
         {
             if (pageNumber <= 0) {
                 pageNumber = 0; 
@@ -26,11 +26,15 @@ namespace BLL
             if (pageSize <= 0) {
                 pageSize = 10;
             }
-            return await _context.Product
+
+            var totalRecordsCount = await _context.Product.CountAsync();
+            var products = await _context.Product
                 .Include(x => x.Category)
                 .Skip(pageSize * pageNumber)                            
                 .Take(pageSize)
                 .ToListAsync();
+
+            return (products, totalRecordsCount);
         }
 
         public async Task<Product?> GetProduct(Guid id)
@@ -40,6 +44,9 @@ namespace BLL
 
         public async Task UpdateProduct(Product product)
         {
+            if (product.ExpiryDate.HasValue)
+                this.ValidateExpirationDate(product.ExpiryDate.Value);
+
             _context.Entry(product).State = EntityState.Modified;
 
             await _context.SaveChangesAsync();
@@ -47,10 +54,21 @@ namespace BLL
 
         public async Task<Product> AddProduct(Product product)
         {
+            if (product.ExpiryDate.HasValue)
+                this.ValidateExpirationDate(product.ExpiryDate.Value);
+
             _context.Product.Add(product);
             await _context.SaveChangesAsync();
 
             return product;
+        }
+
+        private void ValidateExpirationDate(DateTimeOffset expiryDate)
+        {
+            if(expiryDate.ToUniversalTime() <= DateTimeOffset.UtcNow)
+            {
+                throw new InvalidOperationException("Expiry date must be future date.");
+            }
         }
 
         public async Task DeleteProduct(Guid id)
@@ -66,20 +84,6 @@ namespace BLL
         public bool DoesProductExists(Guid id)
         {
             return _context.Product.Any(e => e.ProductId == id);
-        }
-    }
-
-    public class CategoryBusiness : ICategoryBusiness
-    {
-        private readonly ECommerceContext _context;
-        public CategoryBusiness(ECommerceContext context)
-        {
-            _context = context;
-        }
-
-        public async Task<IEnumerable<Category>> GetCategories()
-        {
-            return await _context.Category.ToListAsync();
         }
     }
 }

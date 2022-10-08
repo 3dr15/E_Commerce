@@ -1,0 +1,58 @@
+<p-table #dt 
+    [value]="products" 
+    [lazy]="true" 
+    (onLazyLoad)="loadProducts($event)"
+    dataKey="id" 
+    [totalRecords]="totalRecords"
+    styleClass="p-datatable-products" 
+    [rowHover]="true"
+    [rows]="rowsPerPage"
+    [loading]="loading"
+    [paginator]="true" 
+    >
+            <ng-template pTemplate="caption">
+                <div class="table-header">
+                    <p>
+                        List of Products
+                    </p>
+                    <a [routerLink]="['/add-product']" class="btn btn-primary">Add Product</a>
+                </div>
+            </ng-template>
+            <ng-template pTemplate="header">
+                <tr>
+                    <th>Name</th>
+                    <th>Category</th>
+                    <th>Price</th>
+                    <th>Expiry Date</th>
+                    <th style="width: 8rem"></th>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-product>
+                <tr class="p-selectable-row">
+                    <td>
+                        <span class="p-column-title">Name</span>
+                        {{product.name}}
+                    </td>
+                    <td>
+                        <span class="p-column-title">Category</span>
+                        <span class="image-text">{{product.category.name}}</span>
+                    </td>
+                    <td>
+                        <span class="p-column-title">Price</span>
+                        <span class="image-text">{{product.price}}</span>
+                    </td>
+                    <td>
+                        <span class="p-column-title">Expiry Date</span>
+                        {{product.expiryDate | date: 'MMM d, y'}}
+                    </td>
+                    <td style="text-align: center">
+                        <button pButton type="button" (click)="goToEditProduct(product.productId)" class="p-button-secondary" icon="pi pi-pencil"></button>
+                    </td>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="emptymessage">
+                <tr>
+                    <td colspan="8">No products found.</td>
+                </tr>
+            </ng-template>
+        </p-table>

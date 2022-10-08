@@ -6,12 +6,14 @@ import { FeaturesRoutingModule } from './features-routing.module';
 import { ReactiveFormsModule } from '@angular/forms';
 import { SharedModule } from '../shared/shared.module';
 import { CategoryApiService } from './product/services/category-api.service';
+import { ProductListComponent } from './product/product-list/product-list.component';
 
 
 
 @NgModule({
   declarations: [
-    ProductAddEditComponent
+    ProductAddEditComponent,
+    ProductListComponent
   ],
   imports: [
     CommonModule,
