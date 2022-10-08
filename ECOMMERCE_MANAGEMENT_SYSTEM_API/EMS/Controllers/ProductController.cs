@@ -54,7 +54,7 @@ namespace ECommerce.Controllers
 
         // PUT: api/Product/C945FFE8-A012-415B-B11E-3CDB9FFC8626
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutEmployeeInfo(Guid id, HOST.Modals.Request.UpdateProduct product)
+        public async Task<IActionResult> PutProduct(Guid id, HOST.Modals.Request.UpdateProduct product)
         {
             if (id != product.ProductId)
             {
@@ -82,7 +82,7 @@ namespace ECommerce.Controllers
 
         // POST: api/Product
         [HttpPost]
-        public async Task<ActionResult<HOST.Modals.Response.Product>> PostEmployeeInfo(HOST.Modals.Request.AddProduct product)
+        public async Task<ActionResult<HOST.Modals.Response.Product>> PostProduct(HOST.Modals.Request.AddProduct product)
         {
             return Ok(
                 _mapper.Map<HOST.Modals.Response.Product>(
@@ -93,7 +93,7 @@ namespace ECommerce.Controllers
 
         // DELETE: api/Product/C945FFE8-A012-415B-B11E-3CDB9FFC8626
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteEmployeeInfo(Guid id)
+        public async Task<IActionResult> DeleteProduct(Guid id)
         {
             await _productBusiness.DeleteProduct(id);
             return NoContent();

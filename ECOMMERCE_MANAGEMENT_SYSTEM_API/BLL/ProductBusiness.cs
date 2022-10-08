@@ -35,30 +35,30 @@ namespace BLL
 
         public async Task<Product?> GetProduct(Guid id)
         {
-            return await _context.Product.Include(x => x.Category).FirstOrDefaultAsync(employee => employee.ProductId == id);
+            return await _context.Product.Include(x => x.Category).FirstOrDefaultAsync(product => product.ProductId == id);
         }
 
-        public async Task UpdateProduct(Product employeeInfo)
+        public async Task UpdateProduct(Product product)
         {
-            _context.Entry(employeeInfo).State = EntityState.Modified;
+            _context.Entry(product).State = EntityState.Modified;
 
             await _context.SaveChangesAsync();
         }
 
-        public async Task<Product> AddProduct(Product employeeInfo)
+        public async Task<Product> AddProduct(Product product)
         {
-            _context.Product.Add(employeeInfo);
+            _context.Product.Add(product);
             await _context.SaveChangesAsync();
 
-            return employeeInfo;
+            return product;
         }
 
         public async Task DeleteProduct(Guid id)
         {
-            var employeeInfo = await _context.Product.FindAsync(id);
-            if (employeeInfo != null)
+            var product = await _context.Product.FindAsync(id);
+            if (product != null)
             {
-                _context.Product.Remove(employeeInfo);
+                _context.Product.Remove(product);
                 await _context.SaveChangesAsync();
             }
         }

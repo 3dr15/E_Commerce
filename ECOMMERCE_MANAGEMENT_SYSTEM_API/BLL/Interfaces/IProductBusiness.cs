@@ -6,8 +6,8 @@ namespace BLL.Interfaces
     {
         Task<IEnumerable<Product>> GetProducts(int pageSize, int pageNumber);
         Task<Product?> GetProduct(Guid id);
-        Task<Product> AddProduct(Product employeeInfo);
-        Task UpdateProduct(Product employeeInfo);
+        Task<Product> AddProduct(Product product);
+        Task UpdateProduct(Product product);
         bool DoesProductExists(Guid id);
         Task DeleteProduct(Guid id);
     }
