@@ -33,7 +33,7 @@ export class ProductApiService {
 
   }
 
-  getProductList(pagination: IPaginationParam = {pageNumber:1, pageSize:10 }): Observable<ProductIEnumerableInt32ValueTuple> {
+  getProductList(pagination: IPaginationParam = {pageNumber: 1, pageSize: 5 }): Observable<ProductIEnumerableInt32ValueTuple> {
     return this.productService.apiProductGet({
       pageSize: pagination.pageSize,
       pageNumber: pagination.pageNumber

@@ -35,6 +35,7 @@ export class ProductListComponent implements OnInit, OnDestroy {
   }
 
   getProductList(paginationParam?: IPaginationParam): void {
+    this.loading = true;
     this.subscription.add(
       this.productApiService.getProductList(paginationParam).subscribe({
         next: (responseData) => {
@@ -50,6 +51,23 @@ export class ProductListComponent implements OnInit, OnDestroy {
         }
       })
     );
+  }
+
+  deleteProduct(productId: string): void {
+    if (productId) {
+      this.subscription.add(
+        this.productApiService.deleteProduct(productId).subscribe({
+          next: (responseData) => {
+            this.getProductList();
+          },
+          error: (errorData) => {
+            console.error(errorData);
+            this.toastService.showDanger("Something went wrong!");
+            this.toastService.showDanger(errorData);
+          }
+        })
+      );
+    }
   }
 
   goToEditProduct(productId: string): void {
