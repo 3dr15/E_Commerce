@@ -1,0 +1,155 @@
+<div class="container" [formGroup]="productFormGroup">
+    <div class="row my-5">
+        <div class="col-xl-12 col-md-12 col-sm-12">
+            <div>
+                <label for="name">Name</label>
+            </div>
+            <div class="p-label">
+                <input id="name" 
+                    type="text" pInputText 
+                    formControlName="name" 
+                    [ngClass]="{
+                        'ng-invalid ng-dirty ng-touched': productFormGroup.get('name')?.invalid
+                                                        && productFormGroup.get('name')?.touched
+                    }"
+                > 
+            </div>
+            <div *ngIf="productFormGroup.get('name')?.invalid && productFormGroup.get('name')?.touched"
+                class="text-danger"
+            >
+                <div *ngIf="productFormGroup.get('name')?.hasError('required') 
+                    || 
+                    productFormGroup.get('name')?.hasError('isEmpty')">
+                    Please Enter Product Name
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row my-5">
+        <div class="col-xl-12 col-md-12 col-sm-12">
+            <div>
+                <label for="name">Description</label>
+            </div>
+            <div class="p-label">
+                <input id="name" 
+                    type="text" pInputText 
+                    formControlName="description" 
+                    [ngClass]="{
+                        'ng-invalid ng-dirty ng-touched': productFormGroup.get('description')?.invalid
+                                                        && productFormGroup.get('description')?.touched
+                    }"
+                > 
+            </div>
+            <div *ngIf="productFormGroup.get('description')?.invalid && productFormGroup.get('description')?.touched"
+                class="text-danger"
+            >
+                <div *ngIf="productFormGroup.get('description')?.hasError('required') 
+                    || 
+                    productFormGroup.get('description')?.hasError('isEmpty')">
+                    Please Enter Product Description
+                </div>
+                <div *ngIf="productFormGroup.get('description')?.hasError('maxLength')">
+                    Description can store upto 500 characters only.
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row my-5">
+        <div class="col-xl-12 col-md-12 col-sm-12">
+            <div>
+                <label for="price">Price</label>
+            </div>
+            <div class="p-label">
+                <input id="price" 
+                    type="text" pInputText 
+                    formControlName="price" 
+                    [ngClass]="{
+                        'ng-invalid ng-dirty ng-touched': productFormGroup.get('price')?.invalid
+                                                        && productFormGroup.get('price')?.touched
+                    }"
+                > 
+            </div>
+            <div *ngIf="productFormGroup.get('price')?.invalid && productFormGroup.get('price')?.touched"
+                class="text-danger"
+            >
+                <div *ngIf="productFormGroup.get('price')?.hasError('required') 
+                    || 
+                    productFormGroup.get('price')?.hasError('isEmpty')">
+                    Please Enter Price
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row my-5">
+        <div class="col-xl-12 col-md-12 col-sm-12">
+            <div>
+                <label for="float-input-invalid">Category</label>
+            </div>
+            <div class="">
+                <p-dropdown 
+                    formControlName="categoryId" 
+                    optionLabel="name"
+                    optionValue="categoryId"
+                    [filter]="true" 
+                    [showClear]="true" 
+                    filterBy="name"
+                    [options]="categories" 
+                    placeholder="Select a Category"
+                    [ngClass]="{
+                        'ng-invalid ng-dirty ng-touched': productFormGroup.get('categoryId')?.invalid
+                                                        && productFormGroup.get('categoryId')?.touched
+                    }"
+                >
+                    <ng-template pTemplate="selectedItem">
+                        <div class="category-item category-item-value" *ngIf="productFormGroup.get('categoryId')?.value">
+                            <div>{{ categoryName }}</div>
+                        </div>
+                    </ng-template>
+                    <ng-template let-category pTemplate="item">
+                        <div class="category-item">
+                            <div>{{category.name}}</div>
+                        </div>
+                    </ng-template>
+                </p-dropdown>
+            </div>
+            <div *ngIf="productFormGroup.get('category')?.invalid
+                        && productFormGroup.get('category')?.touched"
+                        class="text-danger">
+                <div *ngIf="productFormGroup.get('category')?.hasError('required')
+                ">
+                    Please Select Category
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row my-5">
+        <div class="col-xl-12 col-md-12 col-sm-12">
+            <div>
+                <label for="float-input-invalid">Expiry Date</label>
+            </div>
+            <div>
+                <p-calendar 
+                    inputId="basic" 
+                    [minDate]="minDate" 
+                    formControlName="expiryDate"
+                    [ngClass]="{
+                        'ng-invalid ng-dirty ng-touched': productFormGroup.get('price')?.invalid
+                                                        && productFormGroup.get('price')?.touched
+                    }"
+                ></p-calendar>
+            </div>
+        </div>
+    </div>
+    <div class="row my-5">
+        <div class="col-xl-6">
+            <button class="btn btn-primary btn-block" (click)="save()">
+                Save
+            </button>
+            <button class="btn btn-secondary btn-block" (click)="quit()">
+                Quit
+            </button>
+        </div>
+    </div>
+</div>
